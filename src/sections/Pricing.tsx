@@ -1,29 +1,30 @@
 import { BadgeCheck, Shield, Zap } from "lucide-react";
+import { motion } from "framer-motion";
 import { Reveal } from "../components/Reveal";
 import { Section } from "../components/Section";
 
 const plans = [
   {
     icon: Zap,
-    title: "Diagnóstico (48h)",
+    title: "Diagnóstico",
     price: "Gratuito",
-    desc: "Para saber rapidamente o que automatizar e por onde começar.",
-    bullets: ["Mapa de ganhos rápidos", "3 gargalos + 3 automações", "Proposta de sprint (prazo + investimento)"],
+    desc: "Saber o que automatizar e por onde começar.",
+    bullets: ["Mapa de ganhos rápidos", "3 gargalos + 3 automações", "Proposta de sprint"],
     highlight: true,
   },
   {
     icon: BadgeCheck,
     title: "ERP Core",
-    price: "Sprint 2–4 semanas",
-    desc: "O essencial a funcionar e a equipa alinhada num sistema único.",
+    price: "2–4 semanas",
+    desc: "O essencial a funcionar, equipa alinhada.",
     bullets: ["Módulos core", "Permissões e auditoria", "Dashboards e exports"],
   },
   {
     icon: Shield,
-    title: "ERP + IA (Gemini)",
-    price: "Sprint 1–2 semanas",
-    desc: "Automação real e redução de trabalho repetitivo com guardrails.",
-    bullets: ["Leitura de docs", "Assistente interno", "Triagem/Resumos/Preenchimento"],
+    title: "ERP + IA",
+    price: "1–2 semanas",
+    desc: "Automação real, menos trabalho repetitivo.",
+    bullets: ["Leitura de docs", "Assistente interno", "Triagem e resumos"],
   },
 ];
 
@@ -32,34 +33,38 @@ export function Pricing() {
     <Section
       eyebrow="Oferta"
       title="Começa simples. Evolui rápido."
-      subtitle="A porta de entrada é o diagnóstico. Depois, implementamos por sprints — sem surpresas."
+      subtitle="A porta de entrada é o diagnóstico. Implementamos por sprints — sem surpresas."
     >
       <div className="grid gap-4 lg:grid-cols-3">
         {plans.map((p, i) => (
-          <Reveal key={p.title} delay={i * 0.05}>
-            <div
+          <Reveal key={p.title} delay={i * 0.06} variant="blur-up">
+            <motion.div
+              whileHover={{ y: -4 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className={[
-                "h-full rounded-3xl border bg-white/5 p-6 backdrop-blur-xl",
-                p.highlight ? "border-white/20 shadow-glow" : "border-white/10",
+                "relative h-full rounded-2xl border p-6 transition-colors duration-400",
+                p.highlight
+                  ? "border-indigo-400/20 bg-gradient-to-b from-indigo-500/[0.06] to-transparent shadow-glow-sm"
+                  : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.1] hover:bg-white/[0.04]",
               ].join(" ")}
             >
-              <div className="flex items-start justify-between gap-3">
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-                  <p.icon size={18} />
+              {p.highlight && (
+                <div className="absolute -top-3 right-4 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-400 px-3 py-0.5 text-[11px] font-semibold text-white">
+                  Mais pedido
                 </div>
-                {p.highlight && (
-                  <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
-                    Mais pedido
-                  </div>
-                )}
+              )}
+              <div className="flex items-start justify-between gap-3">
+                <div className={`rounded-xl p-2.5 ${p.highlight ? "bg-indigo-500/15" : "bg-white/[0.04]"}`}>
+                  <p.icon size={16} className={p.highlight ? "text-indigo-300" : "text-white/60"} />
+                </div>
               </div>
               <div className="mt-4 text-sm font-semibold">{p.title}</div>
-              <div className="mt-2 text-2xl font-semibold">{p.price}</div>
-              <p className="mt-2 text-sm text-white/70">{p.desc}</p>
-              <ul className="mt-4 grid gap-2 text-sm text-white/70">
+              <div className="mt-1 text-xl font-bold">{p.price}</div>
+              <p className="mt-2 text-[13px] text-white/50">{p.desc}</p>
+              <ul className="mt-4 grid gap-1.5 text-[13px] text-white/50">
                 {p.bullets.map((b) => (
                   <li key={b} className="flex gap-2">
-                    <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-white/25" />
+                    <span className="mt-[6px] h-1 w-1 shrink-0 rounded-full bg-indigo-400/40" />
                     {b}
                   </li>
                 ))}
@@ -71,19 +76,21 @@ export function Pricing() {
                   document.getElementById("form")?.scrollIntoView({ behavior: "smooth" });
                 }}
                 className={[
-                  "mt-6 inline-flex h-11 w-full items-center justify-center rounded-2xl text-sm font-semibold transition",
-                  p.highlight ? "bg-white text-ink-950 hover:bg-white/90" : "bg-white/10 text-white hover:bg-white/14",
+                  "mt-6 inline-flex h-10 w-full items-center justify-center rounded-xl text-sm font-semibold transition-all duration-300 active:scale-[0.98]",
+                  p.highlight
+                    ? "bg-white text-ink-950 hover:bg-white/90 hover:shadow-glow-sm"
+                    : "bg-white/[0.06] text-white hover:bg-white/[0.1] border border-white/[0.08]",
                 ].join(" ")}
               >
                 Pedir diagnóstico
               </a>
-            </div>
+            </motion.div>
           </Reveal>
         ))}
       </div>
 
-      <p className="mt-6 text-xs text-white/45">
-        *Os prazos variam conforme complexidade e integrações. A proposta final é definida no diagnóstico.
+      <p className="mt-6 text-[11px] text-white/30">
+        *Prazos variam conforme complexidade. A proposta final é definida no diagnóstico.
       </p>
     </Section>
   );

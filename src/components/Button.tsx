@@ -1,4 +1,3 @@
-import * as React from "react";
 import { cn } from "../lib/cn";
 import type { ButtonHTMLAttributes } from "react";
 
@@ -14,7 +13,7 @@ export function Button({
   ...props
 }: Props) {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-2xl font-medium transition will-change-transform active:translate-y-[1px] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30";
+    "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-300 will-change-transform active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/40 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950";
   const sizes = {
     sm: "h-10 px-4 text-sm",
     md: "h-11 px-5 text-sm",
@@ -23,10 +22,10 @@ export function Button({
 
   const variants = {
     primary:
-      "bg-white text-ink-950 hover:bg-white/90 shadow-soft",
+      "bg-white text-ink-950 hover:bg-white/90 hover:shadow-glow-sm shadow-soft",
     secondary:
-      "bg-white/10 text-white hover:bg-white/14 border border-white/10",
-    ghost: "bg-transparent text-white hover:bg-white/10",
+      "bg-white/[0.06] text-white hover:bg-white/[0.1] border border-white/10 hover:border-white/15 backdrop-blur-sm",
+    ghost: "bg-transparent text-white hover:bg-white/[0.06]",
   }[variant];
 
   return <button className={cn(base, sizes, variants, className)} {...props} />;

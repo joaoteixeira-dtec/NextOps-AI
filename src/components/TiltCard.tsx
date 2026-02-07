@@ -5,7 +5,7 @@ import type { MouseEvent, ReactNode } from "react";
 export function TiltCard({
   children,
   className,
-  intensity = 10,
+  intensity = 8,
 }: {
   children: ReactNode;
   className?: string;
@@ -15,19 +15,19 @@ export function TiltCard({
 
   function onMove(e: MouseEvent<HTMLDivElement>) {
     const el = ref.current;
-    if (!el) return;
+    if (!el || window.innerWidth < 768) return; // disable on mobile
     const rect = el.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
     const rx = (y - 0.5) * -intensity;
     const ry = (x - 0.5) * intensity;
-    el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
+    el.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
   }
 
   function onLeave() {
     const el = ref.current;
     if (!el) return;
-    el.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0)";
+    el.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0)";
   }
 
   return (
@@ -36,7 +36,7 @@ export function TiltCard({
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       className={cn(
-        "transition-transform duration-200 will-change-transform",
+        "transition-transform duration-300 ease-out will-change-transform",
         className
       )}
     >

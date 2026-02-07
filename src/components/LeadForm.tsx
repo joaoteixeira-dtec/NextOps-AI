@@ -16,11 +16,8 @@ export function LeadForm() {
     name: "",
     email: "",
     phone: "",
-    role: "",
     employees: "",
     industry: "",
-    currentTools: "",
-    pain: "",
     message: "",
     consent: true,
   });
@@ -56,11 +53,8 @@ export function LeadForm() {
       name: values.name.trim(),
       email: values.email.trim(),
       phone: values.phone.trim() || undefined,
-      role: values.role.trim() || undefined,
       employees: values.employees || undefined,
       industry: values.industry.trim() || undefined,
-      currentTools: values.currentTools.trim() || undefined,
-      pain: values.pain.trim() || undefined,
       message: values.message.trim() || undefined,
       consent: Boolean(values.consent),
       source: "website",
@@ -77,33 +71,31 @@ export function LeadForm() {
   }
 
   return (
-    <div className="gradient-border rounded-3xl bg-white/5 p-1 shadow-glow">
-      <div className="rounded-[1.35rem] bg-ink-900/55 p-5 backdrop-blur-xl sm:p-6">
+    <div className="rounded-2xl border border-white/[0.08] bg-ink-900/60 p-5 shadow-glow backdrop-blur-2xl sm:p-6">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <div className="text-sm font-semibold">Diagnóstico + Mapa (48h)</div>
-            <p className="mt-1 text-sm text-white/70">
-              Diz-nos o teu contexto. Nós respondemos com 3 ganhos rápidos + proposta de sprint.
+            <div className="text-sm font-bold">Diagnóstico + Mapa (48h)</div>
+            <p className="mt-1.5 text-[13px] leading-relaxed text-white/55">
+              Diz-nos o contexto. Respondemos com ganhos rápidos + proposta de sprint.
             </p>
           </div>
-          <span className="hidden rounded-2xl border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 sm:inline">
+          <span className="hidden rounded-xl border border-white/8 bg-white/[0.04] px-2.5 py-1 text-[11px] text-white/50 sm:inline">
             B2B
           </span>
         </div>
 
         <form className="mt-5 grid gap-3" onSubmit={onSubmit} aria-label="Formulário de lead">
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-x-4 gap-y-3 sm:grid-cols-2">
             <Field label="Empresa*" placeholder="Ex: Visão Consultores" value={values.company} onChange={onChange("company")} disabled={disabled} />
             <Field label="Nome*" placeholder="O teu nome" value={values.name} onChange={onChange("name")} disabled={disabled} />
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-x-4 gap-y-3 sm:grid-cols-2">
             <Field label="Email*" type="email" placeholder="email@empresa.pt" value={values.email} onChange={onChange("email")} disabled={disabled} />
             <Field label="Telefone" placeholder="+351 ..." value={values.phone} onChange={onChange("phone")} disabled={disabled} />
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2">
-            <Field label="Cargo" placeholder="Ex: Gerente / Operações" value={values.role} onChange={onChange("role")} disabled={disabled} />
+          <div className="grid gap-x-4 gap-y-3 sm:grid-cols-2">
             <SelectField
               label="Colaboradores"
               value={values.employees}
@@ -112,61 +104,48 @@ export function LeadForm() {
               options={employeesOptions}
               placeholder="Selecionar"
             />
-          </div>
-
-          <div className="grid gap-3 sm:grid-cols-2">
             <Field label="Setor" placeholder="Ex: Distribuição / Serviços" value={values.industry} onChange={onChange("industry")} disabled={disabled} />
-            <Field label="Ferramentas atuais" placeholder="Ex: Excel, WhatsApp, software X" value={values.currentTools} onChange={onChange("currentTools")} disabled={disabled} />
           </div>
-
-          <TextArea
-            label="Principal dor (opcional)"
-            placeholder="Ex: erros de stock, falta de visibilidade, demasiado tempo a confirmar coisas..."
-            value={values.pain}
-            onChange={onChange("pain")}
-            disabled={disabled}
-          />
 
           <TextArea
             label="Mensagem (opcional)"
-            placeholder="Se quiseres, descreve o teu fluxo atual em 2–3 linhas."
+            placeholder="Descreve o fluxo atual em 2–3 linhas."
             value={values.message}
             onChange={onChange("message")}
             disabled={disabled}
           />
 
-          <label className={cn("mt-1 flex items-start gap-2 text-xs text-white/70", disabled && "opacity-70")}>
+          <label className={cn("mt-1 flex items-start gap-2.5 text-[11px] text-white/50", disabled && "opacity-70")}>
             <input
               type="checkbox"
               checked={values.consent}
               onChange={(e) => setValues((v) => ({ ...v, consent: e.target.checked }))}
               disabled={disabled}
-              className="mt-[2px] h-4 w-4 rounded border-white/15 bg-white/10"
+              className="mt-[2px] h-3.5 w-3.5 rounded border-white/15 bg-white/10 accent-indigo-500"
             />
             Autorizo o contacto da NextOps AI para análise e proposta (sem spam).
           </label>
 
-          {error && <div className="rounded-2xl border border-red-500/20 bg-red-500/10 px-3 py-2 text-xs text-red-200">{error}</div>}
+          {error && <div className="rounded-xl border border-red-500/20 bg-red-500/10 px-3 py-2 text-xs text-red-200">{error}</div>}
 
           <button
             type="submit"
             disabled={disabled}
             className={cn(
-              "mt-2 inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-white px-5 text-sm font-semibold text-ink-950 transition hover:bg-white/90 disabled:opacity-60",
-              !canSubmit && status === "idle" && "opacity-90"
+              "group mt-2 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-ink-950 transition-all duration-300 hover:bg-white/90 hover:shadow-glow-sm disabled:opacity-60 active:scale-[0.98]",
+              !canSubmit && status === "idle" && "opacity-80"
             )}
           >
-            {status === "loading" && <Loader2 className="animate-spin" size={18} />}
-            {status === "success" && <Check size={18} />}
-            {status === "success" ? "Pedido enviado" : "Receber Mapa de Ganhos (48h)"}
+            {status === "loading" && <Loader2 className="animate-spin" size={16} />}
+            {status === "success" && <Check size={16} />}
+            {status === "success" ? "Pedido enviado ✓" : "Receber Mapa de Ganhos"}
           </button>
 
-          <p className="text-xs text-white/55">
-            Resposta em até 48h úteis. Implementação por sprints (rápido e claro).
+          <p className="text-[11px] text-white/35">
+            Resposta em 48h úteis. Implementação por sprints.
           </p>
         </form>
       </div>
-    </div>
   );
 }
 
@@ -186,15 +165,15 @@ function Field({
   disabled?: boolean;
 }) {
   return (
-    <label className="grid gap-1 text-xs text-white/70">
-      <span>{label}</span>
+    <label className="grid min-w-0 gap-1 overflow-hidden text-[11px] font-medium text-white/50">
+      <span className="truncate">{label}</span>
       <input
         type={type}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
         disabled={disabled}
-        className="h-11 rounded-2xl border border-white/10 bg-white/5 px-3 text-sm text-white placeholder:text-white/35 outline-none ring-0 transition focus:border-white/20 focus:bg-white/8"
+        className="h-10 min-w-0 rounded-lg border border-white/8 bg-white/[0.04] px-3 text-sm text-white placeholder:text-white/25 outline-none transition-all duration-300 focus:border-indigo-400/40 focus:bg-white/[0.06] focus:ring-1 focus:ring-indigo-400/20"
       />
     </label>
   );
@@ -216,13 +195,13 @@ function SelectField({
   disabled?: boolean;
 }) {
   return (
-    <label className="grid gap-1 text-xs text-white/70">
-      <span>{label}</span>
+    <label className="grid gap-1 overflow-hidden text-[11px] font-medium text-white/50">
+      <span className="truncate">{label}</span>
       <select
         value={value}
         onChange={onChange}
         disabled={disabled}
-        className="h-11 rounded-2xl border border-white/10 bg-white/5 px-3 text-sm text-white outline-none transition focus:border-white/20"
+        className="h-10 min-w-0 w-full rounded-lg border border-white/8 bg-white/[0.04] px-3 text-sm text-white outline-none transition-all duration-300 focus:border-indigo-400/40 focus:ring-1 focus:ring-indigo-400/20"
       >
         <option value="" className="bg-ink-900">
           {placeholder}
@@ -251,15 +230,15 @@ function TextArea({
   disabled?: boolean;
 }) {
   return (
-    <label className="grid gap-1 text-xs text-white/70">
-      <span>{label}</span>
+    <label className="grid gap-1 overflow-hidden text-[11px] font-medium text-white/50">
+      <span className="truncate">{label}</span>
       <textarea
         value={value}
         onChange={onChange}
         placeholder={placeholder}
         disabled={disabled}
-        rows={3}
-        className="min-h-[90px] resize-none rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-white/20 focus:bg-white/8"
+        rows={2}
+        className="min-h-[72px] resize-none rounded-lg border border-white/8 bg-white/[0.04] px-3 py-2.5 text-sm text-white placeholder:text-white/25 outline-none transition-all duration-300 focus:border-indigo-400/40 focus:bg-white/[0.06] focus:ring-1 focus:ring-indigo-400/20"
       />
     </label>
   );

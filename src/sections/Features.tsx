@@ -11,17 +11,18 @@ import {
 } from "lucide-react";
 import { Reveal } from "../components/Reveal";
 import { Section } from "../components/Section";
+import type { LucideIcon } from "lucide-react";
 
-const features = [
-  { icon: FolderKanban, title: "Pipeline & tarefas", desc: "Estados, prioridades, responsáveis, SLAs e histórico." },
-  { icon: Boxes, title: "Produtos & stock", desc: "Ruturas, reposição, entradas/saídas e inventário." },
-  { icon: ClipboardList, title: "Encomendas & compras", desc: "Ciclo completo com validações e automações." },
-  { icon: UsersRound, title: "Clientes & equipas", desc: "Perfis, permissões, registos e auditoria." },
-  { icon: Route, title: "Rotas & operações", desc: "Planeamento, execução e confirmação no terreno." },
-  { icon: MessagesSquare, title: "Suporte & tickets", desc: "Triagem e respostas assistidas por IA." },
-  { icon: FileBarChart2, title: "Dashboards", desc: "KPIs claros para decisões rápidas." },
-  { icon: GitBranch, title: "Integrações", desc: "APIs, webhooks, email, pagamentos, CRMs." },
-  { icon: Wand2, title: "IA Gemini", desc: "Resumos, extrações, classificação e automação de texto/dados." },
+const features: { icon: LucideIcon; title: string; desc: string }[] = [
+  { icon: FolderKanban, title: "Pipeline & tarefas", desc: "Estados, prioridades, SLAs e histórico." },
+  { icon: Boxes, title: "Produtos & stock", desc: "Ruturas, reposição e inventário." },
+  { icon: ClipboardList, title: "Encomendas", desc: "Ciclo completo com automações." },
+  { icon: UsersRound, title: "Clientes & equipas", desc: "Perfis, permissões e auditoria." },
+  { icon: Route, title: "Rotas & operações", desc: "Planeamento e confirmação no terreno." },
+  { icon: MessagesSquare, title: "Suporte & tickets", desc: "Triagem assistida por IA." },
+  { icon: FileBarChart2, title: "Dashboards", desc: "KPIs claros, decisões rápidas." },
+  { icon: GitBranch, title: "Integrações", desc: "APIs, webhooks, email, CRMs." },
+  { icon: Wand2, title: "IA Gemini", desc: "Resumos, extrações e automação." },
 ];
 
 export function Features() {
@@ -29,20 +30,29 @@ export function Features() {
     <Section
       id="features"
       eyebrow="Módulos"
-      title="Uma base modular — adaptada ao teu processo"
-      subtitle="Escolhe o core e evoluímos por sprints. O objetivo é simplicidade operacional e visibilidade total."
+      title="Módulos que encaixam no teu processo"
+      subtitle="Escolhe o core e evoluímos por sprints. Simplicidade operacional e visibilidade total."
     >
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((f, i) => (
-          <Reveal key={f.title} delay={i * 0.04}>
-            <div className="h-full rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition hover:bg-white/7">
-              <div className="flex items-center gap-3">
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-                  <f.icon size={18} />
+          <Reveal key={f.title} delay={i * 0.04} variant="blur-up">
+            <div
+              className="group relative h-full rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 transition-all duration-400 hover:border-white/[0.1] hover:bg-white/[0.05]"
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+                e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+              }}
+            >
+              {/* Hover spotlight */}
+              <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-400 group-hover:opacity-100" style={{ background: "radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99,102,241,0.06), transparent 40%)" }} />
+              <div className="relative flex items-center gap-3">
+                <div className="rounded-lg bg-white/[0.04] p-2.5 transition-transform duration-300 group-hover:scale-110">
+                  <f.icon size={16} className="text-white/70" />
                 </div>
                 <div className="text-sm font-semibold">{f.title}</div>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-white/70">{f.desc}</p>
+              <p className="relative mt-2.5 text-[13px] leading-relaxed text-white/50">{f.desc}</p>
             </div>
           </Reveal>
         ))}
