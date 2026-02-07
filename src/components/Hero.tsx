@@ -40,7 +40,7 @@ export function Hero() {
             </motion.div>
 
             <div className="flex items-center gap-3">
-              <Logo className="h-10 w-auto" />
+            
               <div className="text-sm font-semibold tracking-wide text-white/80">NextOps AI</div>
               <span className="h-1 w-1 rounded-full bg-white/20" />
               <div className="text-sm text-white/60">Processos claros. Decisões rápidas.</div>
