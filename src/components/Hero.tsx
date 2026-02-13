@@ -63,9 +63,9 @@ export function Hero() {
   };
 
   return (
-    <div ref={ref} className="relative overflow-hidden pt-28 sm:pt-32 lg:pt-36">
+    <div ref={ref} className="relative pt-28 sm:pt-32 lg:pt-36">
       <Container>
-        <div className="grid items-start gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
+        <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
 
           {/* ── Left column ── */}
           <motion.div style={{ opacity }} className="relative">
