@@ -11,7 +11,8 @@ export type Permission =
   | "tasks:view" | "tasks:edit" | "tasks:delete"
   | "invoices:view" | "invoices:edit" | "invoices:delete"
   | "team:view" | "team:edit" | "team:delete"
-  | "reports:view";
+  | "reports:view"
+  | "settings:view" | "settings:edit";
 
 const PERMISSIONS: Record<Role, Permission[]> = {
   admin: [
@@ -24,6 +25,7 @@ const PERMISSIONS: Record<Role, Permission[]> = {
     "invoices:view", "invoices:edit", "invoices:delete",
     "team:view", "team:edit", "team:delete",
     "reports:view",
+    "settings:view", "settings:edit",
   ],
   comercial: [
     "dashboard:view",

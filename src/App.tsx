@@ -16,6 +16,8 @@ const TasksPage = lazy(() => import("./backoffice/pages/TasksPage").then((m) => 
 const InvoicesPage = lazy(() => import("./backoffice/pages/InvoicesPage").then((m) => ({ default: m.InvoicesPage })));
 const TeamPage = lazy(() => import("./backoffice/pages/TeamPage").then((m) => ({ default: m.TeamPage })));
 const ReportsPage = lazy(() => import("./backoffice/pages/ReportsPage").then((m) => ({ default: m.ReportsPage })));
+const PricingSettingsPage = lazy(() => import("./backoffice/pages/PricingSettingsPage").then((m) => ({ default: m.PricingSettingsPage })));
+const PublicProposalPage = lazy(() => import("./backoffice/pages/PublicProposalPage").then((m) => ({ default: m.PublicProposalPage })));
 
 function BackofficeLoader() {
   return (
@@ -35,6 +37,12 @@ export default function App() {
 
           {/* ── Backoffice Login (public) ── */}
           <Route path="/backoffice/login" element={<LoginPage />} />
+
+          {/* ── Public proposal share link ── */}
+          <Route
+            path="/proposta/:token"
+            element={<Suspense fallback={<BackofficeLoader />}><PublicProposalPage /></Suspense>}
+          />
 
           {/* ── Protected Backoffice ── */}
           <Route element={<RequireAuth />}>
@@ -74,6 +82,10 @@ export default function App() {
               <Route
                 path="/backoffice/relatorios"
                 element={<Suspense fallback={<BackofficeLoader />}><ReportsPage /></Suspense>}
+              />
+              <Route
+                path="/backoffice/definicoes"
+                element={<Suspense fallback={<BackofficeLoader />}><PricingSettingsPage /></Suspense>}
               />
             </Route>
           </Route>

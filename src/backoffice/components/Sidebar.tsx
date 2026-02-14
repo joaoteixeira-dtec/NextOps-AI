@@ -14,6 +14,7 @@ import {
   LogOut,
   ChevronLeft,
   Menu,
+  Settings,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { cn } from "../../lib/cn";
@@ -35,6 +36,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Faturação",   path: "/backoffice/faturacao", icon: <Receipt size={20} />,          permission: "invoices:view" },
   { label: "Equipa",      path: "/backoffice/equipa",    icon: <UserCog size={20} />,          permission: "team:view" },
   { label: "Relatórios",  path: "/backoffice/relatorios",icon: <BarChart3 size={20} />,        permission: "reports:view" },
+  { label: "Definições",  path: "/backoffice/definicoes",icon: <Settings size={20} />,         permission: "settings:view" },
 ];
 
 export function Sidebar() {

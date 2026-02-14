@@ -86,17 +86,66 @@ export type ClientContact = {
 
 export type ProposalStatus = "rascunho" | "enviada" | "aceite" | "recusada";
 
+export type ProductKey = "diagnostico" | "erp_core" | "erp_ia" | "modulo_avulso";
+
+export type PaymentTerms = "100_upfront" | "50_50" | "3_parcelas";
+
+export type CompanyProfile = {
+  companyName: string;
+  email: string;
+  nif: string;
+  sector: string;
+  capitalSocial: string;
+  employees: string;
+  annualRevenue: string;
+  departments: string[];
+  specificities: string;
+  mainInterest: string;
+};
+
+export type ProposalComment = {
+  id: string;
+  authorId: string;
+  authorName: string;
+  content: string;
+  createdAt: string;
+};
+
+export type ProposalVersion = {
+  version: number;
+  title: string;
+  product: ProductKey;
+  modules: string[];
+  items: ProposalItem[];
+  total: number;
+  paymentTerms: PaymentTerms;
+  validUntil: string;
+  notes?: string;
+  savedBy: string;
+  savedAt: string;
+};
+
 export type Proposal = {
   id: string;
   clientId: string;
   clientName: string;
   leadId?: string;
   title: string;
+  product: ProductKey;
+  companyProfile: CompanyProfile;
+  modules: string[];
+  estimatedSprints: number;
+  paymentTerms: PaymentTerms;
   items: ProposalItem[];
   total: number;
   status: ProposalStatus;
   validUntil: string;
   notes?: string;
+  pdfUrl?: string;
+  shareToken?: string;
+  version?: number;
+  versions?: ProposalVersion[];
+  comments?: ProposalComment[];
   createdBy: string;
   createdAt: string;
   updatedAt: string;
