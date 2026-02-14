@@ -1,6 +1,20 @@
-import type { Role } from "./permissions";
+/* ── Roles & Permissions ── */
+
+export type Role = "admin" | "comercial" | "tecnico";
+
+export type Permission =
+  | "dashboard:view"
+  | "crm:view" | "crm:edit" | "crm:delete"
+  | "clients:view" | "clients:edit" | "clients:delete"
+  | "proposals:view" | "proposals:edit" | "proposals:delete"
+  | "projects:view" | "projects:edit" | "projects:delete"
+  | "tasks:view" | "tasks:edit" | "tasks:delete"
+  | "invoices:view" | "invoices:edit" | "invoices:delete"
+  | "team:view" | "team:edit" | "team:delete"
+  | "reports:view";
 
 /* ── Landing Page Lead Form ── */
+
 export type LeadPayload = {
   company: string;
   name: string;
@@ -14,7 +28,7 @@ export type LeadPayload = {
   timestamp: string;
 };
 
-/* ──────────────────────── Backoffice Types ──────────────────────── */
+/* ── Backoffice Types ── */
 
 export type UserProfile = {
   uid: string;

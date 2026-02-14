@@ -1,17 +1,6 @@
-/* ──────────────────────── Roles & Permissions ──────────────────────── */
+import type { Role, Permission } from "@nextops/shared";
 
-export type Role = "admin" | "comercial" | "tecnico";
-
-export type Permission =
-  | "dashboard:view"
-  | "crm:view" | "crm:edit" | "crm:delete"
-  | "clients:view" | "clients:edit" | "clients:delete"
-  | "proposals:view" | "proposals:edit" | "proposals:delete"
-  | "projects:view" | "projects:edit" | "projects:delete"
-  | "tasks:view" | "tasks:edit" | "tasks:delete"
-  | "invoices:view" | "invoices:edit" | "invoices:delete"
-  | "team:view" | "team:edit" | "team:delete"
-  | "reports:view";
+export type { Role, Permission };
 
 const PERMISSIONS: Record<Role, Permission[]> = {
   admin: [
